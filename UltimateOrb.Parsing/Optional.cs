@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using ThrowHelper = UltimateOrb.Parsing.ThrowHelper;
 
 namespace UltimateOrb.Parsing {
     using static ThrowHelper;
@@ -19,7 +18,6 @@ namespace UltimateOrb.Parsing {
         }
 
         public T Value {
-
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get {
                 if (HasValue) {
@@ -27,6 +25,27 @@ namespace UltimateOrb.Parsing {
                 }
                 throw ThrowInvalidOperationException();
             }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static explicit operator T(Optional<T> value) {
+            if (value.HasValue) {
+                return value.ValueOrDefault;
+            }
+            throw ThrowInvalidCastException();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Optional<T>(T value) {
+            return new Optional<T>(value);
+        }
+
+        public static bool operator !=(Optional<T> left, Optional<T> right) {
+            return !(left == right);
+        }
+
+        public static bool operator ==(Optional<T> left, Optional<T> right) {
+            return left.Equals(right);
         }
 
         public override bool Equals(object obj) {
@@ -45,25 +64,8 @@ namespace UltimateOrb.Parsing {
             return hashCode;
         }
 
-        public static bool operator ==(Optional<T> left, Optional<T> right) {
-            return left.Equals(right);
-        }
-
-        public static bool operator !=(Optional<T> left, Optional<T> right) {
-            return !(left == right);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Optional<T>(T value) {
-            return new Optional<T>(value);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator T(Optional<T> value) {
-            if (value.HasValue) {
-                return value.ValueOrDefault;
-            }
-            throw ThrowInvalidCastException();
+        public override string ToString() {
+            return HasValue ? $@"({ValueOrDefault})" : "()";
         }
     }
 }
