@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28809.33
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateOrb.Parsing", "UltimateOrb.Parsing\UltimateOrb.Parsing.csproj", "{AB0E1C33-1EB3-499C-A996-6C0DDF6C1520}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimateOrb.Parsing.Examples", "UltimateOrb.Parsing.Examples\UltimateOrb.Parsing.Examples.csproj", "{FFA7DBDE-FBBC-4359-9F51-B9356426369A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB0E1C33-1EB3-499C-A996-6C0DDF6C1520}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB0E1C33-1EB3-499C-A996-6C0DDF6C1520}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB0E1C33-1EB3-499C-A996-6C0DDF6C1520}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB0E1C33-1EB3-499C-A996-6C0DDF6C1520}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFA7DBDE-FBBC-4359-9F51-B9356426369A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFA7DBDE-FBBC-4359-9F51-B9356426369A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFA7DBDE-FBBC-4359-9F51-B9356426369A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFA7DBDE-FBBC-4359-9F51-B9356426369A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {017217B5-28FB-4254-833B-4C74C66FD4EB}
+	EndGlobalSection
+EndGlobal
