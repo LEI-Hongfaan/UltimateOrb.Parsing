@@ -7,8 +7,8 @@ namespace UltimateOrb.Parsing {
 
     public static partial class Combinators {
 
-        public static EndOfInputParser<TChar, Void> EndOfInput<TChar>() {
-            return new EndOfInputParser<TChar, Void>(default);
+        public static EndOfInputParser<TChar, VoidResult> EndOfInput<TChar>() {
+            return new EndOfInputParser<TChar, VoidResult>(default);
         }
 
         public static EndOfInputParser<TChar, TResult> EndOfInput<TChar, TResult>(TResult result) {

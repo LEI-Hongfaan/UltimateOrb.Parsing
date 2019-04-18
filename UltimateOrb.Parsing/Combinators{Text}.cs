@@ -15,8 +15,8 @@ namespace UltimateOrb.Parsing {
             return func.AsParser();
         }
 
-        public static EndOfInputParser<Void> EndOfInput() {
-            return new EndOfInputParser<Void>();
+        public static EndOfInputParser<VoidResult> EndOfInput() {
+            return new EndOfInputParser<VoidResult>();
         }
 
         public static EndOfInputParser<TResult> EndOfInput<TResult>(TResult result) {

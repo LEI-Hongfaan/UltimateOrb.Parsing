@@ -18,14 +18,14 @@ namespace UltimateOrb.Parsing {
 
             public readonly static Generic.ParserTimesWithAggregatingImpl<char, char, (StringBuilder, int), string> AnyCharSequenceNillable = new AnyCharParser<char>(x => x).Times((new StringBuilder(), 0), (x, y) => (x.Item1.Length = x.Item2++).Comma(x.Item1.Append(y)).Comma(x), z => z.Item1.ToString(0, z.Item2), 0, Infinity);
 
-            public readonly static EndOfInputParser<Void> EndOfInput = new EndOfInputParser<Void>();
+            public readonly static EndOfInputParser<VoidResult> EndOfInput = new EndOfInputParser<VoidResult>();
 
-            public readonly static EmptyParser<Void> Empty = new EmptyParser<Void>();
+            public readonly static EmptyParser<VoidResult> Empty = new EmptyParser<VoidResult>();
 
-            public readonly static EmptyParser<Void> EndAtAny = new EmptyParser<Void>();
+            public readonly static EmptyParser<VoidResult> EndAtAny = new EmptyParser<VoidResult>();
 
             // public readonly static EmptyParser<Void> StartAtAny = new AnyCharParser<Void>(x => default).Times(default, (x, y) => default);
-            public readonly static Generic.ParserTimesWithAggregatingImpl<char, Void, Void> StartAtAny = new AnyCharParser<Void>(x => default).Times(default(Void), (x, y) => default);
+            public readonly static Generic.ParserTimesWithAggregatingImpl<char, VoidResult, VoidResult> StartAtAny = new AnyCharParser<VoidResult>(x => default).Times(default(VoidResult), (x, y) => default);
 
             public readonly static InvariantDecimalDigitParser DecimalDigit = new InvariantDecimalDigitParser();
 
