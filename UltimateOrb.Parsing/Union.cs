@@ -4,20 +4,20 @@ using System.Runtime.CompilerServices;
 
 namespace UltimateOrb.Parsing {
 
-    public readonly struct Union<T1, T2> : IEquatable<Union<T1, T2>> {
+    public readonly struct Union2<T1, T2> : IEquatable<Union2<T1, T2>> {
 
         public readonly int Case;
 
         private readonly object _Value;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Union(T1 value) : this() {
+        public Union2(T1 value) : this() {
             Case = 1;
             _Value = value;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Union(T2 value) : this() {
+        public Union2(T2 value) : this() {
             Case = 2;
             _Value = value;
         }
@@ -45,10 +45,10 @@ namespace UltimateOrb.Parsing {
         }
 
         public override bool Equals(object obj) {
-            return obj is Union<T1, T2> union && this.Equals(union);
+            return obj is Union2<T1, T2> union && this.Equals(union);
         }
 
-        public bool Equals(Union<T1, T2> other) {
+        public bool Equals(Union2<T1, T2> other) {
             return this.Case == other.Case &&
                    EqualityComparer<object>.Default.Equals(this._Value, other._Value);
         }
@@ -64,26 +64,26 @@ namespace UltimateOrb.Parsing {
             return 0 == Case ? null : $@"({_Value}:{Case})";
         }
 
-        public static bool operator ==(Union<T1, T2> left, Union<T1, T2> right) {
+        public static bool operator ==(Union2<T1, T2> left, Union2<T1, T2> right) {
             return left.Equals(right);
         }
 
-        public static bool operator !=(Union<T1, T2> left, Union<T1, T2> right) {
+        public static bool operator !=(Union2<T1, T2> left, Union2<T1, T2> right) {
             return !(left == right);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Union<T1, T2>(T1 value) {
-            return new Union<T1, T2>(value);
+        public static implicit operator Union2<T1, T2>(T1 value) {
+            return new Union2<T1, T2>(value);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Union<T1, T2>(T2 value) {
-            return new Union<T1, T2>(value);
+        public static implicit operator Union2<T1, T2>(T2 value) {
+            return new Union2<T1, T2>(value);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator T1(Union<T1, T2> value) {
+        public static explicit operator T1(Union2<T1, T2> value) {
             if (1 == value.Case) {
                 return (T1)value._Value;
             }
@@ -91,7 +91,7 @@ namespace UltimateOrb.Parsing {
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator T2(Union<T1, T2> value) {
+        public static explicit operator T2(Union2<T1, T2> value) {
             if (2 == value.Case) {
                 return (T2)value._Value;
             }

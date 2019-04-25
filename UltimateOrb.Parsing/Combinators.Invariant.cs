@@ -22,7 +22,7 @@ namespace UltimateOrb.Parsing {
 
             public readonly static EmptyParser<VoidResult> Empty = new EmptyParser<VoidResult>();
 
-            public readonly static EmptyParser<VoidResult> EndAtAny = new EmptyParser<VoidResult>();
+            public readonly static Generic.ParserSelectManyImpl2<char, VoidResult, VoidResult, VoidResult> EndAtAny = new EmptyParser<VoidResult>().SelectMany(Empty, (x, y) => default(VoidResult));
 
             // public readonly static EmptyParser<Void> StartAtAny = new AnyCharParser<Void>(x => default).Times(default, (x, y) => default);
             public readonly static Generic.ParserTimesWithAggregatingImpl<char, VoidResult, VoidResult> StartAtAny = new AnyCharParser<VoidResult>(x => default).Times(default(VoidResult), (x, y) => default);
