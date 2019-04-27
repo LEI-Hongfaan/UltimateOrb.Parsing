@@ -1,0 +1,6 @@
+﻿<#@ import namespace="System.Collections.Generic" #>
+<#
+var Predicates = new[] { "Single", "Ranged", /*Predicate*/"", "Any" };
+var ResultSelectors = new[] { "Identity", "Const", /*ResultSelector*/"" };
+var SpecializedVariants = new [] { "Generic", "Text", "Segments" };
+#>

@@ -69,6 +69,7 @@ namespace UltimateOrb.Parsing.Generic {
 
         private readonly Func<TResult2, TResult> resultSelector2;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ParserOrImpl(IParser<TChar, TResult1> parser1, IParser<TChar, TResult2> parser2, Func<TResult1, TResult> resultSelector1, Func<TResult2, TResult> resultSelector2) {
             this.parser1 = parser1;
             this.parser2 = parser2;
@@ -76,6 +77,7 @@ namespace UltimateOrb.Parsing.Generic {
             this.resultSelector2 = resultSelector2;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerator<(TResult Result, int Position)> Parse<TString>(TString input, int position) where TString : IReadOnlyList<TChar> {
             {
                 var enumerator = parser1.Parse(input, position);
