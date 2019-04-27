@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.28809.33
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateOrb.Parsing", "UltimateOrb.Parsing\UltimateOrb.Parsing.csproj", "{AB0E1C33-1EB3-499C-A996-6C0DDF6C1520}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimateOrb.Parsing.Examples", "UltimateOrb.Parsing.Examples\UltimateOrb.Parsing.Examples.csproj", "{FFA7DBDE-FBBC-4359-9F51-B9356426369A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateOrb.Parsing.Examples", "UltimateOrb.Parsing.Examples\UltimateOrb.Parsing.Examples.csproj", "{FFA7DBDE-FBBC-4359-9F51-B9356426369A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "T4Templates", "T4Templates", "{41D445F2-2D03-46C4-944B-EBF341211184}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

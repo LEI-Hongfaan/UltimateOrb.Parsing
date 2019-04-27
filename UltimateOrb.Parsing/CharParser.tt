@@ -1,0 +1,174 @@
+﻿<#@ template language="C#" #>
+<#@include file="T4Templates/default.ttinclude" #>
+using System;
+using System.Collections.Generic;
+<#
+    foreach (string sv in SpecializedVariants)
+    foreach (string pd in Predicates)
+    foreach (string rs in ResultSelectors) {
+        var parserName = "Char";
+        var tChar = sv.Contains("Text") ? "char" : "TChar";
+        var tString = sv.Contains("Text") ? "string" : "TString";
+        var _Length = "string" == tString ? "Length" : "Count";
+        var tResult = sv.Contains("Segments") ? "(int Start, int Length)" : !rs.Contains("Identity") ? "TResult" : tChar;
+
+        var gptsL = new List<string>();
+        if ("TChar" == tChar) {
+            gptsL.Add(tChar);
+        }
+        if ("TResult" == tResult) {
+            gptsL.Add(tResult);
+        }
+        var gtps = 0 == gptsL.Count ? null : string.Join(", ", gptsL);
+#>
+
+namespace UltimateOrb.Parsing.<#= sv #> {
+
+    public readonly struct <#= pd #><#= parserName #><#= rs #>Parser<# if (null != gtps) { #><<#= gtps #>><# } #>
+
+        : IParser<<# if ("Generic" == sv) { #><#= tChar #>, <#= tResult #><# } #><# if ("Text" == sv) { #><#= tResult #><# } #><# if ("Segments" == sv) { #><#= tChar #><# } #>>
+<# if ("TChar" == tChar) { #>
+<#     if ("Single" == pd) { #>
+        where <#= tChar #> : IEquatable<<#= tChar #>>
+<#     } #>
+<#     if ("Ranged" == pd) { #>
+        where <#= tChar #> : IComparable<<#= tChar #>>
+<#     } #>
+<# } #>
+    {
+<# var ff = false; #>
+<# if ("Single" == pd) { #>
+<#     ff = true; #>
+<# } #>
+<# if ("Ranged" == pd) { #>
+<#     ff = true; #>
+<# } #>
+<# if ("" == pd) { #>
+<#     ff = true; #>
+<# } #>
+<# if ("Any" == pd) { #>
+<# } #>
+<# if ("Identity" == rs) { #>
+<# } #>
+<# if ("Const" == rs) { #>
+<#     ff = true; #>
+<# } #>
+<# if ("" == rs) { #>
+<#     ff = true; #>
+<# } #>
+<# if (ff) { #>
+
+<# if ("Single" == pd) { #>
+        readonly <#= tChar #> expected;
+<# } #>
+<# if ("Ranged" == pd) { #>
+        readonly <#= tChar #> minExpected;
+
+        readonly <#= tChar #> maxExpected;
+<# } #>
+<# if ("" == pd) { #>
+        readonly Predicate<<#= tChar #>> predicate;
+<# } #>
+<# if ("Any" == pd) { #>
+<# } #>
+<# if ("Identity" == rs) { #>
+<# } #>
+<# if ("Const" == rs) { #>
+
+        readonly <#= tResult #> result;
+<# } #>
+<# if ("" == rs) { #>
+
+        readonly Converter<<#= tChar #>, <#= tResult #>> resultSelector;
+<# } #>
+
+        public <#= pd #><#= parserName #><#= rs #>Parser(
+<# { var param = false; #>
+<# if ("Single" == pd) { #>
+            <# if (param) { #>, <# } param = true; #><#= tChar #> expected
+<# } #>
+<# if ("Ranged" == pd) { #>
+            <# if (param) { #>, <# } param = true; #><#= tChar #> minExpected
+            <# if (param) { #>, <# } param = true; #><#= tChar #> maxExpected
+<# } #>
+<# if ("" == pd) { #>
+            <# if (param) { #>, <# } param = true; #>Predicate<<#= tChar #>> predicate
+<# } #>
+<# if ("Any" == pd) { #>
+<# } #>
+<# if ("Identity" == rs) { #>
+<# } #>
+<# if ("Const" == rs) { #>
+            <# if (param) { #>, <# } param = true; #><#= tResult #> result
+<# } #>
+<# if ("" == rs) { #>
+            <# if (param) { #>, <# } param = true; #>Converter<<#= tChar #>, <#= tResult #>> resultSelector
+<# } #>
+<# } #>
+        ) {
+<# if ("Single" == pd) { #>
+            this.expected = expected;
+<# } #>
+<# if ("Ranged" == pd) { #>
+            this.minExpected = minExpected;
+            this.maxExpected = maxExpected;
+<# } #>
+<# if ("" == pd) { #>
+            this.predicate = predicate;
+<# } #>
+<# if ("Any" == pd) { #>
+<# } #>
+<# if ("Identity" == rs) { #>
+<# } #>
+<# if ("Const" == rs) { #>
+            this.result = result;
+<# } #>
+<# if ("" == rs) { #>
+            this.resultSelector = resultSelector;
+<# } #>
+        }
+<# } #>
+
+        public IEnumerator<(<#= tResult #> Result, int Position)> Parse<TString>(TString input, int position = 0) where TString : IReadOnlyList<<#= tChar #>> {
+            var p = position;
+            if (input.Count > p) {
+                var ch = input[p++];
+                if (
+<# if ("Single" == pd) { #>
+                    ch.Equals(expected)
+<# } #>
+<# if ("Ranged" == pd) { #>
+                    ch.CompareTo(maxExpected) <= 0 && ch.CompareTo(minExpected) >= 0
+<# } #>
+<# if ("" == pd) { #>
+                    predicate.Invoke(ch)
+<# } #>
+<# if ("Any" == pd) { #>
+                    true
+<# } #>
+                ) {
+<# if ("Identity" == rs) { #>
+<#     if (sv.Contains("Segments")) { #>
+                    yield return ((position, 1), p);
+<#     } else { #>
+                    yield return (ch, p);
+<#     } #>
+<# } #>
+<# if ("Const" == rs) { #>
+<#     if (sv.Contains("Segments")) { #>
+                    yield return (result, p);
+<#     } else { #>
+                    yield return (result, p);
+<#     } #>
+<# } #>
+<# if ("" == rs) { #>
+                    yield return (resultSelector.Invoke(ch), p);
+<# } #>
+                }
+            }
+        }
+    }
+}
+<#
+    }
+#>
