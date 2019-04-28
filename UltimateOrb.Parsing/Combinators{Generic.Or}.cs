@@ -143,7 +143,7 @@ namespace UltimateOrb.Parsing.Generic {
         private readonly IParser<TChar, TResult> parser2;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ParserOneOfOrImpl(IParser<TChar, TResult> parser1, IParser<TChar, TResult> parser2) {
+        public ParserOrElseUntaggedImpl(IParser<TChar, TResult> parser1, IParser<TChar, TResult> parser2) {
             this.parser1 = parser1;
             this.parser2 = parser2;
         }

@@ -39,6 +39,10 @@ namespace UltimateOrb.Parsing {
             return new SimpleStringConstParser<TResult>(expected, result);
         }
 
+        public static StringAsOneOfParser ToStringAsOneOfParser(this string expected) {
+            return new StringAsOneOfParser(expected);
+        }
+
     }
 
     
@@ -55,6 +59,28 @@ namespace UltimateOrb.Parsing {
 
         public IEnumerator<(TResult Result, int Position)> Parse<TString>(TString input, int position) where TString : IReadOnlyList<char> {
             return func(Combinators.ToString(input), position);
+        }
+    }
+
+    public readonly struct StringAsOneOfParser
+        : IParser<string> {
+
+        private readonly string expected;
+
+        public StringAsOneOfParser(string expected) {
+            this.expected = expected;
+        }
+
+        public IEnumerator<(string Result, int Position)> Parse<TString>(TString input, int position) where TString : IReadOnlyList<char> {
+            var inputs = Combinators.ToString(input).ToCharArray();
+            var resultStr = "";
+            for (int i = 0; i < inputs.Length; i++) {
+                var istr = inputs[i].ToString();
+                if (this.expected.Contains(istr)) {
+                    resultStr += istr;
+                }
+            }
+            yield return (resultStr,0);
         }
     }
 }
