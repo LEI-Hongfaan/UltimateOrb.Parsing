@@ -63,7 +63,7 @@ namespace UltimateOrb.Parsing {
     }
 
     public readonly struct StringAsOneOfParser
-        : IParser<string> {
+        : IParser<char> {
 
         private readonly string expected;
 
@@ -71,16 +71,15 @@ namespace UltimateOrb.Parsing {
             this.expected = expected;
         }
 
-        public IEnumerator<(string Result, int Position)> Parse<TString>(TString input, int position) where TString : IReadOnlyList<char> {
+        public IEnumerator<(char Result, int Position)> Parse<TString>(TString input, int position) where TString : IReadOnlyList<char> {
             var inputs = Combinators.ToString(input).ToCharArray();
-            var resultStr = "";
             for (int i = 0; i < inputs.Length; i++) {
                 var istr = inputs[i].ToString();
                 if (this.expected.Contains(istr)) {
-                    resultStr += istr;
+                    yield return (inputs[i], i);
                 }
             }
-            yield return (resultStr,0);
+            
         }
     }
 }
