@@ -24,9 +24,12 @@ using System.Collections.Generic;
 
 namespace UltimateOrb.Parsing.<#= sv #> {
 
-    public readonly struct <#= pd #><#= parserName #><#= rs #>Parser<# if (null != gtps) { #><<#= gtps #>><# } #>
+    public readonly partial struct <#= pd #><#= parserName #><#= rs #>Parser<# if (null != gtps) { #><<#= gtps #>><# } #>
 
         : IParser<<# if ("Generic" == sv) { #><#= tChar #>, <#= tResult #><# } #><# if ("Text" == sv) { #><#= tResult #><# } #><# if ("Segments" == sv) { #><#= tChar #><# } #>>
+<# if ("Text" == sv && ("Single" == pd || "Ranged" == pd)) { #>
+        , RegularExpressions.IRegularExpressionSource
+<# } #>
 <# if ("TChar" == tChar) { #>
 <#     if ("Single" == pd) { #>
         where <#= tChar #> : IEquatable<<#= tChar #>>
@@ -167,6 +170,18 @@ namespace UltimateOrb.Parsing.<#= sv #> {
                 }
             }
         }
+<# if ("Text" == sv && ("Single" == pd || "Ranged" == pd)) { #>
+
+        public string GetRegexPattern() {
+<# if ("Single" == pd) { #>            
+            return new string(expected, 1);
+<# } #>
+<# if ("Ranged" == pd) { #>
+            var t = new char[] { '[', minExpected, '-', maxExpected, ']' };
+            return new string(t);
+<# } #>
+        }
+<# } #>
     }
 }
 <#

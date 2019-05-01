@@ -137,11 +137,13 @@ namespace UltimateOrb.Parsing.Generic {
                 if (enumerator.MoveNext()) {
                     ++count;
                     var current = enumerator.Current;
+                    var t = func(acc, current.Result);
                     if (minOccurrence <= count) {
-                        yield return (acc = func(acc, current.Result), current.Position);
+                        yield return (t, current.Position);
                     }
                     if (Infinity == maxOccurrence || maxOccurrence > count) {
                         s.Push((enumerator, acc));
+                        acc = t;
                         enumerator = parser.Parse(input, current.Position);
                         continue;
                     }
@@ -194,11 +196,13 @@ namespace UltimateOrb.Parsing.Generic {
                 if (enumerator.MoveNext()) {
                     ++count;
                     var current = enumerator.Current;
+                    var t = func(acc, current.Result);
                     if (minOccurrence <= count) {
-                        yield return (resultSelector.Invoke(acc = func(acc, current.Result)), current.Position);
+                        yield return (resultSelector.Invoke(t), current.Position);
                     }
                     if (Infinity == maxOccurrence || maxOccurrence > count) {
                         s.Push((enumerator, acc));
+                        acc = t;
                         enumerator = parser.Parse(input, current.Position);
                         continue;
                     }

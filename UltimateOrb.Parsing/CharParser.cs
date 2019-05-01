@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace UltimateOrb.Parsing.Generic {
 
-    public readonly struct SingleCharIdentityParser<TChar>
+    public readonly partial struct SingleCharIdentityParser<TChar>
         : IParser<TChar, TChar>
         where TChar : IEquatable<TChar>
     {
@@ -33,7 +33,7 @@ namespace UltimateOrb.Parsing.Generic {
 
 namespace UltimateOrb.Parsing.Generic {
 
-    public readonly struct SingleCharConstParser<TChar, TResult>
+    public readonly partial struct SingleCharConstParser<TChar, TResult>
         : IParser<TChar, TResult>
         where TChar : IEquatable<TChar>
     {
@@ -66,7 +66,7 @@ namespace UltimateOrb.Parsing.Generic {
 
 namespace UltimateOrb.Parsing.Generic {
 
-    public readonly struct SingleCharParser<TChar, TResult>
+    public readonly partial struct SingleCharParser<TChar, TResult>
         : IParser<TChar, TResult>
         where TChar : IEquatable<TChar>
     {
@@ -99,7 +99,7 @@ namespace UltimateOrb.Parsing.Generic {
 
 namespace UltimateOrb.Parsing.Generic {
 
-    public readonly struct RangedCharIdentityParser<TChar>
+    public readonly partial struct RangedCharIdentityParser<TChar>
         : IParser<TChar, TChar>
         where TChar : IComparable<TChar>
     {
@@ -132,7 +132,7 @@ namespace UltimateOrb.Parsing.Generic {
 
 namespace UltimateOrb.Parsing.Generic {
 
-    public readonly struct RangedCharConstParser<TChar, TResult>
+    public readonly partial struct RangedCharConstParser<TChar, TResult>
         : IParser<TChar, TResult>
         where TChar : IComparable<TChar>
     {
@@ -169,7 +169,7 @@ namespace UltimateOrb.Parsing.Generic {
 
 namespace UltimateOrb.Parsing.Generic {
 
-    public readonly struct RangedCharParser<TChar, TResult>
+    public readonly partial struct RangedCharParser<TChar, TResult>
         : IParser<TChar, TResult>
         where TChar : IComparable<TChar>
     {
@@ -206,7 +206,7 @@ namespace UltimateOrb.Parsing.Generic {
 
 namespace UltimateOrb.Parsing.Generic {
 
-    public readonly struct CharIdentityParser<TChar>
+    public readonly partial struct CharIdentityParser<TChar>
         : IParser<TChar, TChar>
     {
 
@@ -234,7 +234,7 @@ namespace UltimateOrb.Parsing.Generic {
 
 namespace UltimateOrb.Parsing.Generic {
 
-    public readonly struct CharConstParser<TChar, TResult>
+    public readonly partial struct CharConstParser<TChar, TResult>
         : IParser<TChar, TResult>
     {
 
@@ -266,7 +266,7 @@ namespace UltimateOrb.Parsing.Generic {
 
 namespace UltimateOrb.Parsing.Generic {
 
-    public readonly struct CharParser<TChar, TResult>
+    public readonly partial struct CharParser<TChar, TResult>
         : IParser<TChar, TResult>
     {
 
@@ -298,7 +298,7 @@ namespace UltimateOrb.Parsing.Generic {
 
 namespace UltimateOrb.Parsing.Generic {
 
-    public readonly struct AnyCharIdentityParser<TChar>
+    public readonly partial struct AnyCharIdentityParser<TChar>
         : IParser<TChar, TChar>
     {
 
@@ -318,7 +318,7 @@ namespace UltimateOrb.Parsing.Generic {
 
 namespace UltimateOrb.Parsing.Generic {
 
-    public readonly struct AnyCharConstParser<TChar, TResult>
+    public readonly partial struct AnyCharConstParser<TChar, TResult>
         : IParser<TChar, TResult>
     {
 
@@ -347,7 +347,7 @@ namespace UltimateOrb.Parsing.Generic {
 
 namespace UltimateOrb.Parsing.Generic {
 
-    public readonly struct AnyCharParser<TChar, TResult>
+    public readonly partial struct AnyCharParser<TChar, TResult>
         : IParser<TChar, TResult>
     {
 
@@ -376,8 +376,9 @@ namespace UltimateOrb.Parsing.Generic {
 
 namespace UltimateOrb.Parsing.Text {
 
-    public readonly struct SingleCharIdentityParser
+    public readonly partial struct SingleCharIdentityParser
         : IParser<char>
+        , RegularExpressions.IRegularExpressionSource
     {
 
         readonly char expected;
@@ -399,13 +400,19 @@ namespace UltimateOrb.Parsing.Text {
                 }
             }
         }
+
+        public string GetRegexPattern() {
+            
+            return new string(expected, 1);
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Text {
 
-    public readonly struct SingleCharConstParser<TResult>
+    public readonly partial struct SingleCharConstParser<TResult>
         : IParser<TResult>
+        , RegularExpressions.IRegularExpressionSource
     {
 
         readonly char expected;
@@ -431,13 +438,19 @@ namespace UltimateOrb.Parsing.Text {
                 }
             }
         }
+
+        public string GetRegexPattern() {
+            
+            return new string(expected, 1);
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Text {
 
-    public readonly struct SingleCharParser<TResult>
+    public readonly partial struct SingleCharParser<TResult>
         : IParser<TResult>
+        , RegularExpressions.IRegularExpressionSource
     {
 
         readonly char expected;
@@ -463,13 +476,19 @@ namespace UltimateOrb.Parsing.Text {
                 }
             }
         }
+
+        public string GetRegexPattern() {
+            
+            return new string(expected, 1);
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Text {
 
-    public readonly struct RangedCharIdentityParser
+    public readonly partial struct RangedCharIdentityParser
         : IParser<char>
+        , RegularExpressions.IRegularExpressionSource
     {
 
         readonly char minExpected;
@@ -495,13 +514,19 @@ namespace UltimateOrb.Parsing.Text {
                 }
             }
         }
+
+        public string GetRegexPattern() {
+            var t = new char[] { '[', minExpected, '-', maxExpected, ']' };
+            return new string(t);
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Text {
 
-    public readonly struct RangedCharConstParser<TResult>
+    public readonly partial struct RangedCharConstParser<TResult>
         : IParser<TResult>
+        , RegularExpressions.IRegularExpressionSource
     {
 
         readonly char minExpected;
@@ -531,13 +556,19 @@ namespace UltimateOrb.Parsing.Text {
                 }
             }
         }
+
+        public string GetRegexPattern() {
+            var t = new char[] { '[', minExpected, '-', maxExpected, ']' };
+            return new string(t);
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Text {
 
-    public readonly struct RangedCharParser<TResult>
+    public readonly partial struct RangedCharParser<TResult>
         : IParser<TResult>
+        , RegularExpressions.IRegularExpressionSource
     {
 
         readonly char minExpected;
@@ -567,12 +598,17 @@ namespace UltimateOrb.Parsing.Text {
                 }
             }
         }
+
+        public string GetRegexPattern() {
+            var t = new char[] { '[', minExpected, '-', maxExpected, ']' };
+            return new string(t);
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Text {
 
-    public readonly struct CharIdentityParser
+    public readonly partial struct CharIdentityParser
         : IParser<char>
     {
 
@@ -600,7 +636,7 @@ namespace UltimateOrb.Parsing.Text {
 
 namespace UltimateOrb.Parsing.Text {
 
-    public readonly struct CharConstParser<TResult>
+    public readonly partial struct CharConstParser<TResult>
         : IParser<TResult>
     {
 
@@ -632,7 +668,7 @@ namespace UltimateOrb.Parsing.Text {
 
 namespace UltimateOrb.Parsing.Text {
 
-    public readonly struct CharParser<TResult>
+    public readonly partial struct CharParser<TResult>
         : IParser<TResult>
     {
 
@@ -664,7 +700,7 @@ namespace UltimateOrb.Parsing.Text {
 
 namespace UltimateOrb.Parsing.Text {
 
-    public readonly struct AnyCharIdentityParser
+    public readonly partial struct AnyCharIdentityParser
         : IParser<char>
     {
 
@@ -684,7 +720,7 @@ namespace UltimateOrb.Parsing.Text {
 
 namespace UltimateOrb.Parsing.Text {
 
-    public readonly struct AnyCharConstParser<TResult>
+    public readonly partial struct AnyCharConstParser<TResult>
         : IParser<TResult>
     {
 
@@ -713,7 +749,7 @@ namespace UltimateOrb.Parsing.Text {
 
 namespace UltimateOrb.Parsing.Text {
 
-    public readonly struct AnyCharParser<TResult>
+    public readonly partial struct AnyCharParser<TResult>
         : IParser<TResult>
     {
 
@@ -742,7 +778,7 @@ namespace UltimateOrb.Parsing.Text {
 
 namespace UltimateOrb.Parsing.Segments {
 
-    public readonly struct SingleCharIdentityParser<TChar>
+    public readonly partial struct SingleCharIdentityParser<TChar>
         : IParser<TChar>
         where TChar : IEquatable<TChar>
     {
@@ -771,7 +807,7 @@ namespace UltimateOrb.Parsing.Segments {
 
 namespace UltimateOrb.Parsing.Segments {
 
-    public readonly struct SingleCharConstParser<TChar>
+    public readonly partial struct SingleCharConstParser<TChar>
         : IParser<TChar>
         where TChar : IEquatable<TChar>
     {
@@ -804,7 +840,7 @@ namespace UltimateOrb.Parsing.Segments {
 
 namespace UltimateOrb.Parsing.Segments {
 
-    public readonly struct SingleCharParser<TChar>
+    public readonly partial struct SingleCharParser<TChar>
         : IParser<TChar>
         where TChar : IEquatable<TChar>
     {
@@ -837,7 +873,7 @@ namespace UltimateOrb.Parsing.Segments {
 
 namespace UltimateOrb.Parsing.Segments {
 
-    public readonly struct RangedCharIdentityParser<TChar>
+    public readonly partial struct RangedCharIdentityParser<TChar>
         : IParser<TChar>
         where TChar : IComparable<TChar>
     {
@@ -870,7 +906,7 @@ namespace UltimateOrb.Parsing.Segments {
 
 namespace UltimateOrb.Parsing.Segments {
 
-    public readonly struct RangedCharConstParser<TChar>
+    public readonly partial struct RangedCharConstParser<TChar>
         : IParser<TChar>
         where TChar : IComparable<TChar>
     {
@@ -907,7 +943,7 @@ namespace UltimateOrb.Parsing.Segments {
 
 namespace UltimateOrb.Parsing.Segments {
 
-    public readonly struct RangedCharParser<TChar>
+    public readonly partial struct RangedCharParser<TChar>
         : IParser<TChar>
         where TChar : IComparable<TChar>
     {
@@ -944,7 +980,7 @@ namespace UltimateOrb.Parsing.Segments {
 
 namespace UltimateOrb.Parsing.Segments {
 
-    public readonly struct CharIdentityParser<TChar>
+    public readonly partial struct CharIdentityParser<TChar>
         : IParser<TChar>
     {
 
@@ -972,7 +1008,7 @@ namespace UltimateOrb.Parsing.Segments {
 
 namespace UltimateOrb.Parsing.Segments {
 
-    public readonly struct CharConstParser<TChar>
+    public readonly partial struct CharConstParser<TChar>
         : IParser<TChar>
     {
 
@@ -1004,7 +1040,7 @@ namespace UltimateOrb.Parsing.Segments {
 
 namespace UltimateOrb.Parsing.Segments {
 
-    public readonly struct CharParser<TChar>
+    public readonly partial struct CharParser<TChar>
         : IParser<TChar>
     {
 
@@ -1036,7 +1072,7 @@ namespace UltimateOrb.Parsing.Segments {
 
 namespace UltimateOrb.Parsing.Segments {
 
-    public readonly struct AnyCharIdentityParser<TChar>
+    public readonly partial struct AnyCharIdentityParser<TChar>
         : IParser<TChar>
     {
 
@@ -1056,7 +1092,7 @@ namespace UltimateOrb.Parsing.Segments {
 
 namespace UltimateOrb.Parsing.Segments {
 
-    public readonly struct AnyCharConstParser<TChar>
+    public readonly partial struct AnyCharConstParser<TChar>
         : IParser<TChar>
     {
 
@@ -1085,7 +1121,7 @@ namespace UltimateOrb.Parsing.Segments {
 
 namespace UltimateOrb.Parsing.Segments {
 
-    public readonly struct AnyCharParser<TChar>
+    public readonly partial struct AnyCharParser<TChar>
         : IParser<TChar>
     {
 
