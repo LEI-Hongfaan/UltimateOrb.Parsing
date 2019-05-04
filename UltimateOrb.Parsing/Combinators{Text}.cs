@@ -71,12 +71,14 @@ namespace UltimateOrb.Parsing {
             this.expected = expected;
         }
 
-        public IEnumerator<(char Result, int Position)> Parse<TString>(TString input, int position) where TString : IReadOnlyList<char> {
-            var inputs = Combinators.ToString(input).ToCharArray();
-            for (int i = 0; i < inputs.Length; i++) {
-                var istr = inputs[i].ToString();
-                if (this.expected.Contains(istr)) {
-                    yield return (inputs[i], i);
+        public IEnumerator<(char Result, int Position)> Parse<TString>(TString input, int position = 0) where TString : IReadOnlyList<char> {
+            var p = position;
+            if (input.Count > p) {
+                var ch = input[p++];
+                if (
+                    this.expected.Contains(ch.ToString())
+                ) {
+                    yield return (ch, p);
                 }
             }
             
