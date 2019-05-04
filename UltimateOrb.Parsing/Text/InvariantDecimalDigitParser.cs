@@ -20,7 +20,11 @@ namespace UltimateOrb.Parsing.Text {
             return this;
         }
 
-        IParser<char, int> IReversibleParser<char, int>.Reversed() {
+        IReversibleParser<char, int> IReversibleParser<char, int>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<int> IReversibleParser<int>.Reversed() {
             return this.Reversed();
         }
     }

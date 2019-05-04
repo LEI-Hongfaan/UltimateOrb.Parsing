@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>LEI Hongfaan</Authors>
+    <Version>0.2.1</Version>
+    <Description>Flexible, extensible, open-source and monadic parser combinators with LINQ.</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +15,10 @@
     <None Update="CharParser.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CharParser.cs</LastGenOutput>
+    </None>
+    <None Update="Combinators{Generic.SelectMany.WithPosition}.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Combinators{Generic.SelectMany.WithPosition}.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
@@ -24,6 +31,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>CharParser.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Combinators{Generic.SelectMany.WithPosition}.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Combinators{Generic.SelectMany.WithPosition}.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 

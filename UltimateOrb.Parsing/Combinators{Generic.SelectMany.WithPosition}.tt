@@ -1,0 +1,69 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using UltimateOrb.Parsing.Generic;
+
+<#
+for (var index = 0; 8 > index; ++index) {
+    var b0 = 0 != (1 & index);
+    var b1 = 0 != (2 & index);
+    var b2 = 0 != (4 & index);
+    var tResult = b0 ? "ReadOnlyWrapper<(TResult Result, int Position), WithPositionT>" : "TResult";
+    var tRangeSource = b1 ? "(TSource Result, int Position)" : "TSource";
+    var tParser1 = b1 ? "ReadOnlyWrapper<IParser<TChar, TSource>, WithPositionT>" : "IParser<TChar, TSource>";
+    var tRangeCollection = b2 ? "(TCollection Result, int Position)" : "TCollection";
+    var tParser2 = b2 ? "ReadOnlyWrapper<IParser<TChar, TCollection>, WithPositionT>" : "IParser<TChar, TCollection>";
+#>
+
+namespace UltimateOrb.Parsing {
+
+    public static partial class Combinators {
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ParserSelectManyWithPositionImpl<#= index #><TChar, TSource, TCollection, TResult> SelectMany<TChar, TSource, TCollection, TResult>(this <#= tParser1 #> source, Func<<#= tRangeSource #>, <#= tParser2 #>> collectionSelector, Func<<#= tRangeSource #>, <#= tRangeCollection #>, <#= tResult #>> resultSelector) {
+            return new ParserSelectManyWithPositionImpl<#= index #><TChar, TSource, TCollection, TResult>(source, collectionSelector, resultSelector);
+        }
+    }
+}
+
+namespace UltimateOrb.Parsing.Generic {
+
+    public readonly struct ParserSelectManyWithPositionImpl<#= index #><TChar, TSource, TCollection, TResult>
+        : IParser<TChar, TResult> {
+
+        private readonly <#= tParser1 #> source;
+
+        private readonly Func<<#= tRangeSource #>, <#= tParser2 #>> collectionSelector;
+
+        private readonly Func<<#= tRangeSource #>, <#= tRangeCollection #>, <#= tResult #>> resultSelector;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public ParserSelectManyWithPositionImpl<#= index #>(<#= tParser1 #> source, Func<<#= tRangeSource #>, <#= tParser2 #>> collectionSelector, Func<<#= tRangeSource #>, <#= tRangeCollection #>, <#= tResult #>> resultSelector) {
+            this.source = source;
+            this.collectionSelector = collectionSelector;
+            this.resultSelector = resultSelector;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public IEnumerator<(TResult Result, int Position)> Parse<TString>(TString input, int position) where TString : IReadOnlyList<TChar> {
+            var source_enumerator = source<# if (b1) { #>.Value<# } #>.Parse(input, position);
+            for (; source_enumerator.MoveNext();) {
+                var source_current = source_enumerator.Current;
+                var collection_enumerator = collectionSelector.Invoke(source_current<# if (!b1) { #>.Result<# } #>)<# if (b2) { #>.Value<# } #>.Parse(input, source_current.Position);
+                for (; collection_enumerator.MoveNext();) {
+                    var collection_current = collection_enumerator.Current;
+<# if (b0) { #>
+                    yield return resultSelector.Invoke(source_current<# if (!b1) { #>.Result<# } #>, collection_current<# if (!b2) { #>.Result<# } #>).Value;
+<# } else { #>
+                    yield return (resultSelector.Invoke(source_current<# if (!b1) { #>.Result<# } #>, collection_current<# if (!b2) { #>.Result<# } #>), collection_current.Position);
+<# } #>
+                }
+                collection_enumerator.Dispose();
+            }
+            source_enumerator.Dispose();
+        }
+    }
+}
+<#
+}
+#>

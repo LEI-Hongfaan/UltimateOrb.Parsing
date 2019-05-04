@@ -26,7 +26,7 @@ namespace UltimateOrb.Parsing.<#= sv #> {
 
     public readonly partial struct <#= pd #><#= parserName #><#= rs #>Parser<# if (null != gtps) { #><<#= gtps #>><# } #>
 
-        : IParser<<# if ("Generic" == sv) { #><#= tChar #>, <#= tResult #><# } #><# if ("Text" == sv) { #><#= tResult #><# } #><# if ("Segments" == sv) { #><#= tChar #><# } #>>
+        : IReversibleParser<<# if ("Generic" == sv) { #><#= tChar #>, <#= tResult #><# } #><# if ("Text" == sv) { #><#= tResult #><# } #><# if ("Segments" == sv) { #><#= tChar #><# } #>>
 <# if ("Text" == sv && ("Single" == pd || "Ranged" == pd)) { #>
         , RegularExpressions.IRegularExpressionSource
 <# } #>
@@ -182,6 +182,20 @@ namespace UltimateOrb.Parsing.<#= sv #> {
 <# } #>
         }
 <# } #>
+
+        public <#= pd #><#= parserName #><#= rs #>Parser<# if (null != gtps) { #><<#= gtps #>><# } #> Reversed() {
+            return this;
+        }
+<# if (sv.Contains("Text") || sv.Contains("Segments")) { #>
+
+        Generic.IReversibleParser<<#= tChar #>, <#= tResult #>> Generic.IReversibleParser<<#= tChar #>, <#= tResult #>>.Reversed() {
+            return this.Reversed();
+        }
+<# } #>
+
+        IReversibleParser<<# if ("Generic" == sv) { #><#= tChar #>, <#= tResult #><# } #><# if ("Text" == sv) { #><#= tResult #><# } #><# if ("Segments" == sv) { #><#= tChar #><# } #>> IReversibleParser<<# if ("Generic" == sv) { #><#= tChar #>, <#= tResult #><# } #><# if ("Text" == sv) { #><#= tResult #><# } #><# if ("Segments" == sv) { #><#= tChar #><# } #>>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 <#
