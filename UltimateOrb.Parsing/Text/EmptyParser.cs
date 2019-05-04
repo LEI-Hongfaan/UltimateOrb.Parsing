@@ -25,8 +25,16 @@ namespace UltimateOrb.Parsing.Text {
             yield return (result, position);
         }
 
-        IParser<char, TResult> IReversibleParser<char, TResult>.Reversed() {
-            throw new NotImplementedException();
+        public EmptyParser<TResult> Reversed() {
+            return this;
+        }
+
+        IReversibleParser<char, TResult> IReversibleParser<char, TResult>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<TResult> IReversibleParser<TResult>.Reversed() {
+            return this.Reversed();
         }
     }
 }

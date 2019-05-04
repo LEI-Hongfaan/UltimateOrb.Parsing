@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 namespace UltimateOrb.Parsing.Generic {
 
-    public readonly struct SingleCharIdentityParser<TChar>
-        : IParser<TChar, TChar>
+    public readonly partial struct SingleCharIdentityParser<TChar>
+        : IReversibleParser<TChar, TChar>
         where TChar : IEquatable<TChar>
     {
 
@@ -28,13 +28,21 @@ namespace UltimateOrb.Parsing.Generic {
                 }
             }
         }
+
+        public SingleCharIdentityParser<TChar> Reversed() {
+            return this;
+        }
+
+        IReversibleParser<TChar, TChar> IReversibleParser<TChar, TChar>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Generic {
 
-    public readonly struct SingleCharConstParser<TChar, TResult>
-        : IParser<TChar, TResult>
+    public readonly partial struct SingleCharConstParser<TChar, TResult>
+        : IReversibleParser<TChar, TResult>
         where TChar : IEquatable<TChar>
     {
 
@@ -61,13 +69,21 @@ namespace UltimateOrb.Parsing.Generic {
                 }
             }
         }
+
+        public SingleCharConstParser<TChar, TResult> Reversed() {
+            return this;
+        }
+
+        IReversibleParser<TChar, TResult> IReversibleParser<TChar, TResult>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Generic {
 
-    public readonly struct SingleCharParser<TChar, TResult>
-        : IParser<TChar, TResult>
+    public readonly partial struct SingleCharParser<TChar, TResult>
+        : IReversibleParser<TChar, TResult>
         where TChar : IEquatable<TChar>
     {
 
@@ -94,13 +110,21 @@ namespace UltimateOrb.Parsing.Generic {
                 }
             }
         }
+
+        public SingleCharParser<TChar, TResult> Reversed() {
+            return this;
+        }
+
+        IReversibleParser<TChar, TResult> IReversibleParser<TChar, TResult>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Generic {
 
-    public readonly struct RangedCharIdentityParser<TChar>
-        : IParser<TChar, TChar>
+    public readonly partial struct RangedCharIdentityParser<TChar>
+        : IReversibleParser<TChar, TChar>
         where TChar : IComparable<TChar>
     {
 
@@ -127,13 +151,21 @@ namespace UltimateOrb.Parsing.Generic {
                 }
             }
         }
+
+        public RangedCharIdentityParser<TChar> Reversed() {
+            return this;
+        }
+
+        IReversibleParser<TChar, TChar> IReversibleParser<TChar, TChar>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Generic {
 
-    public readonly struct RangedCharConstParser<TChar, TResult>
-        : IParser<TChar, TResult>
+    public readonly partial struct RangedCharConstParser<TChar, TResult>
+        : IReversibleParser<TChar, TResult>
         where TChar : IComparable<TChar>
     {
 
@@ -164,13 +196,21 @@ namespace UltimateOrb.Parsing.Generic {
                 }
             }
         }
+
+        public RangedCharConstParser<TChar, TResult> Reversed() {
+            return this;
+        }
+
+        IReversibleParser<TChar, TResult> IReversibleParser<TChar, TResult>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Generic {
 
-    public readonly struct RangedCharParser<TChar, TResult>
-        : IParser<TChar, TResult>
+    public readonly partial struct RangedCharParser<TChar, TResult>
+        : IReversibleParser<TChar, TResult>
         where TChar : IComparable<TChar>
     {
 
@@ -201,13 +241,21 @@ namespace UltimateOrb.Parsing.Generic {
                 }
             }
         }
+
+        public RangedCharParser<TChar, TResult> Reversed() {
+            return this;
+        }
+
+        IReversibleParser<TChar, TResult> IReversibleParser<TChar, TResult>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Generic {
 
-    public readonly struct CharIdentityParser<TChar>
-        : IParser<TChar, TChar>
+    public readonly partial struct CharIdentityParser<TChar>
+        : IReversibleParser<TChar, TChar>
     {
 
         readonly Predicate<TChar> predicate;
@@ -229,13 +277,21 @@ namespace UltimateOrb.Parsing.Generic {
                 }
             }
         }
+
+        public CharIdentityParser<TChar> Reversed() {
+            return this;
+        }
+
+        IReversibleParser<TChar, TChar> IReversibleParser<TChar, TChar>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Generic {
 
-    public readonly struct CharConstParser<TChar, TResult>
-        : IParser<TChar, TResult>
+    public readonly partial struct CharConstParser<TChar, TResult>
+        : IReversibleParser<TChar, TResult>
     {
 
         readonly Predicate<TChar> predicate;
@@ -261,13 +317,21 @@ namespace UltimateOrb.Parsing.Generic {
                 }
             }
         }
+
+        public CharConstParser<TChar, TResult> Reversed() {
+            return this;
+        }
+
+        IReversibleParser<TChar, TResult> IReversibleParser<TChar, TResult>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Generic {
 
-    public readonly struct CharParser<TChar, TResult>
-        : IParser<TChar, TResult>
+    public readonly partial struct CharParser<TChar, TResult>
+        : IReversibleParser<TChar, TResult>
     {
 
         readonly Predicate<TChar> predicate;
@@ -293,13 +357,21 @@ namespace UltimateOrb.Parsing.Generic {
                 }
             }
         }
+
+        public CharParser<TChar, TResult> Reversed() {
+            return this;
+        }
+
+        IReversibleParser<TChar, TResult> IReversibleParser<TChar, TResult>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Generic {
 
-    public readonly struct AnyCharIdentityParser<TChar>
-        : IParser<TChar, TChar>
+    public readonly partial struct AnyCharIdentityParser<TChar>
+        : IReversibleParser<TChar, TChar>
     {
 
         public IEnumerator<(TChar Result, int Position)> Parse<TString>(TString input, int position = 0) where TString : IReadOnlyList<TChar> {
@@ -313,13 +385,21 @@ namespace UltimateOrb.Parsing.Generic {
                 }
             }
         }
+
+        public AnyCharIdentityParser<TChar> Reversed() {
+            return this;
+        }
+
+        IReversibleParser<TChar, TChar> IReversibleParser<TChar, TChar>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Generic {
 
-    public readonly struct AnyCharConstParser<TChar, TResult>
-        : IParser<TChar, TResult>
+    public readonly partial struct AnyCharConstParser<TChar, TResult>
+        : IReversibleParser<TChar, TResult>
     {
 
 
@@ -342,13 +422,21 @@ namespace UltimateOrb.Parsing.Generic {
                 }
             }
         }
+
+        public AnyCharConstParser<TChar, TResult> Reversed() {
+            return this;
+        }
+
+        IReversibleParser<TChar, TResult> IReversibleParser<TChar, TResult>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Generic {
 
-    public readonly struct AnyCharParser<TChar, TResult>
-        : IParser<TChar, TResult>
+    public readonly partial struct AnyCharParser<TChar, TResult>
+        : IReversibleParser<TChar, TResult>
     {
 
 
@@ -371,13 +459,22 @@ namespace UltimateOrb.Parsing.Generic {
                 }
             }
         }
+
+        public AnyCharParser<TChar, TResult> Reversed() {
+            return this;
+        }
+
+        IReversibleParser<TChar, TResult> IReversibleParser<TChar, TResult>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Text {
 
-    public readonly struct SingleCharIdentityParser
-        : IParser<char>
+    public readonly partial struct SingleCharIdentityParser
+        : IReversibleParser<char>
+        , RegularExpressions.IRegularExpressionSource
     {
 
         readonly char expected;
@@ -399,13 +496,31 @@ namespace UltimateOrb.Parsing.Text {
                 }
             }
         }
+
+        public string GetRegexPattern() {
+            
+            return new string(expected, 1);
+        }
+
+        public SingleCharIdentityParser Reversed() {
+            return this;
+        }
+
+        Generic.IReversibleParser<char, char> Generic.IReversibleParser<char, char>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<char> IReversibleParser<char>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Text {
 
-    public readonly struct SingleCharConstParser<TResult>
-        : IParser<TResult>
+    public readonly partial struct SingleCharConstParser<TResult>
+        : IReversibleParser<TResult>
+        , RegularExpressions.IRegularExpressionSource
     {
 
         readonly char expected;
@@ -431,13 +546,31 @@ namespace UltimateOrb.Parsing.Text {
                 }
             }
         }
+
+        public string GetRegexPattern() {
+            
+            return new string(expected, 1);
+        }
+
+        public SingleCharConstParser<TResult> Reversed() {
+            return this;
+        }
+
+        Generic.IReversibleParser<char, TResult> Generic.IReversibleParser<char, TResult>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<TResult> IReversibleParser<TResult>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Text {
 
-    public readonly struct SingleCharParser<TResult>
-        : IParser<TResult>
+    public readonly partial struct SingleCharParser<TResult>
+        : IReversibleParser<TResult>
+        , RegularExpressions.IRegularExpressionSource
     {
 
         readonly char expected;
@@ -463,13 +596,31 @@ namespace UltimateOrb.Parsing.Text {
                 }
             }
         }
+
+        public string GetRegexPattern() {
+            
+            return new string(expected, 1);
+        }
+
+        public SingleCharParser<TResult> Reversed() {
+            return this;
+        }
+
+        Generic.IReversibleParser<char, TResult> Generic.IReversibleParser<char, TResult>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<TResult> IReversibleParser<TResult>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Text {
 
-    public readonly struct RangedCharIdentityParser
-        : IParser<char>
+    public readonly partial struct RangedCharIdentityParser
+        : IReversibleParser<char>
+        , RegularExpressions.IRegularExpressionSource
     {
 
         readonly char minExpected;
@@ -495,13 +646,31 @@ namespace UltimateOrb.Parsing.Text {
                 }
             }
         }
+
+        public string GetRegexPattern() {
+            var t = new char[] { '[', minExpected, '-', maxExpected, ']' };
+            return new string(t);
+        }
+
+        public RangedCharIdentityParser Reversed() {
+            return this;
+        }
+
+        Generic.IReversibleParser<char, char> Generic.IReversibleParser<char, char>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<char> IReversibleParser<char>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Text {
 
-    public readonly struct RangedCharConstParser<TResult>
-        : IParser<TResult>
+    public readonly partial struct RangedCharConstParser<TResult>
+        : IReversibleParser<TResult>
+        , RegularExpressions.IRegularExpressionSource
     {
 
         readonly char minExpected;
@@ -531,13 +700,31 @@ namespace UltimateOrb.Parsing.Text {
                 }
             }
         }
+
+        public string GetRegexPattern() {
+            var t = new char[] { '[', minExpected, '-', maxExpected, ']' };
+            return new string(t);
+        }
+
+        public RangedCharConstParser<TResult> Reversed() {
+            return this;
+        }
+
+        Generic.IReversibleParser<char, TResult> Generic.IReversibleParser<char, TResult>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<TResult> IReversibleParser<TResult>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Text {
 
-    public readonly struct RangedCharParser<TResult>
-        : IParser<TResult>
+    public readonly partial struct RangedCharParser<TResult>
+        : IReversibleParser<TResult>
+        , RegularExpressions.IRegularExpressionSource
     {
 
         readonly char minExpected;
@@ -567,13 +754,30 @@ namespace UltimateOrb.Parsing.Text {
                 }
             }
         }
+
+        public string GetRegexPattern() {
+            var t = new char[] { '[', minExpected, '-', maxExpected, ']' };
+            return new string(t);
+        }
+
+        public RangedCharParser<TResult> Reversed() {
+            return this;
+        }
+
+        Generic.IReversibleParser<char, TResult> Generic.IReversibleParser<char, TResult>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<TResult> IReversibleParser<TResult>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Text {
 
-    public readonly struct CharIdentityParser
-        : IParser<char>
+    public readonly partial struct CharIdentityParser
+        : IReversibleParser<char>
     {
 
         readonly Predicate<char> predicate;
@@ -595,13 +799,25 @@ namespace UltimateOrb.Parsing.Text {
                 }
             }
         }
+
+        public CharIdentityParser Reversed() {
+            return this;
+        }
+
+        Generic.IReversibleParser<char, char> Generic.IReversibleParser<char, char>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<char> IReversibleParser<char>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Text {
 
-    public readonly struct CharConstParser<TResult>
-        : IParser<TResult>
+    public readonly partial struct CharConstParser<TResult>
+        : IReversibleParser<TResult>
     {
 
         readonly Predicate<char> predicate;
@@ -627,13 +843,25 @@ namespace UltimateOrb.Parsing.Text {
                 }
             }
         }
+
+        public CharConstParser<TResult> Reversed() {
+            return this;
+        }
+
+        Generic.IReversibleParser<char, TResult> Generic.IReversibleParser<char, TResult>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<TResult> IReversibleParser<TResult>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Text {
 
-    public readonly struct CharParser<TResult>
-        : IParser<TResult>
+    public readonly partial struct CharParser<TResult>
+        : IReversibleParser<TResult>
     {
 
         readonly Predicate<char> predicate;
@@ -659,13 +887,25 @@ namespace UltimateOrb.Parsing.Text {
                 }
             }
         }
+
+        public CharParser<TResult> Reversed() {
+            return this;
+        }
+
+        Generic.IReversibleParser<char, TResult> Generic.IReversibleParser<char, TResult>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<TResult> IReversibleParser<TResult>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Text {
 
-    public readonly struct AnyCharIdentityParser
-        : IParser<char>
+    public readonly partial struct AnyCharIdentityParser
+        : IReversibleParser<char>
     {
 
         public IEnumerator<(char Result, int Position)> Parse<TString>(TString input, int position = 0) where TString : IReadOnlyList<char> {
@@ -679,13 +919,25 @@ namespace UltimateOrb.Parsing.Text {
                 }
             }
         }
+
+        public AnyCharIdentityParser Reversed() {
+            return this;
+        }
+
+        Generic.IReversibleParser<char, char> Generic.IReversibleParser<char, char>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<char> IReversibleParser<char>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Text {
 
-    public readonly struct AnyCharConstParser<TResult>
-        : IParser<TResult>
+    public readonly partial struct AnyCharConstParser<TResult>
+        : IReversibleParser<TResult>
     {
 
 
@@ -708,13 +960,25 @@ namespace UltimateOrb.Parsing.Text {
                 }
             }
         }
+
+        public AnyCharConstParser<TResult> Reversed() {
+            return this;
+        }
+
+        Generic.IReversibleParser<char, TResult> Generic.IReversibleParser<char, TResult>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<TResult> IReversibleParser<TResult>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Text {
 
-    public readonly struct AnyCharParser<TResult>
-        : IParser<TResult>
+    public readonly partial struct AnyCharParser<TResult>
+        : IReversibleParser<TResult>
     {
 
 
@@ -737,13 +1001,25 @@ namespace UltimateOrb.Parsing.Text {
                 }
             }
         }
+
+        public AnyCharParser<TResult> Reversed() {
+            return this;
+        }
+
+        Generic.IReversibleParser<char, TResult> Generic.IReversibleParser<char, TResult>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<TResult> IReversibleParser<TResult>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Segments {
 
-    public readonly struct SingleCharIdentityParser<TChar>
-        : IParser<TChar>
+    public readonly partial struct SingleCharIdentityParser<TChar>
+        : IReversibleParser<TChar>
         where TChar : IEquatable<TChar>
     {
 
@@ -766,13 +1042,25 @@ namespace UltimateOrb.Parsing.Segments {
                 }
             }
         }
+
+        public SingleCharIdentityParser<TChar> Reversed() {
+            return this;
+        }
+
+        Generic.IReversibleParser<TChar, (int Start, int Length)> Generic.IReversibleParser<TChar, (int Start, int Length)>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<TChar> IReversibleParser<TChar>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Segments {
 
-    public readonly struct SingleCharConstParser<TChar>
-        : IParser<TChar>
+    public readonly partial struct SingleCharConstParser<TChar>
+        : IReversibleParser<TChar>
         where TChar : IEquatable<TChar>
     {
 
@@ -799,13 +1087,25 @@ namespace UltimateOrb.Parsing.Segments {
                 }
             }
         }
+
+        public SingleCharConstParser<TChar> Reversed() {
+            return this;
+        }
+
+        Generic.IReversibleParser<TChar, (int Start, int Length)> Generic.IReversibleParser<TChar, (int Start, int Length)>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<TChar> IReversibleParser<TChar>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Segments {
 
-    public readonly struct SingleCharParser<TChar>
-        : IParser<TChar>
+    public readonly partial struct SingleCharParser<TChar>
+        : IReversibleParser<TChar>
         where TChar : IEquatable<TChar>
     {
 
@@ -832,13 +1132,25 @@ namespace UltimateOrb.Parsing.Segments {
                 }
             }
         }
+
+        public SingleCharParser<TChar> Reversed() {
+            return this;
+        }
+
+        Generic.IReversibleParser<TChar, (int Start, int Length)> Generic.IReversibleParser<TChar, (int Start, int Length)>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<TChar> IReversibleParser<TChar>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Segments {
 
-    public readonly struct RangedCharIdentityParser<TChar>
-        : IParser<TChar>
+    public readonly partial struct RangedCharIdentityParser<TChar>
+        : IReversibleParser<TChar>
         where TChar : IComparable<TChar>
     {
 
@@ -865,13 +1177,25 @@ namespace UltimateOrb.Parsing.Segments {
                 }
             }
         }
+
+        public RangedCharIdentityParser<TChar> Reversed() {
+            return this;
+        }
+
+        Generic.IReversibleParser<TChar, (int Start, int Length)> Generic.IReversibleParser<TChar, (int Start, int Length)>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<TChar> IReversibleParser<TChar>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Segments {
 
-    public readonly struct RangedCharConstParser<TChar>
-        : IParser<TChar>
+    public readonly partial struct RangedCharConstParser<TChar>
+        : IReversibleParser<TChar>
         where TChar : IComparable<TChar>
     {
 
@@ -902,13 +1226,25 @@ namespace UltimateOrb.Parsing.Segments {
                 }
             }
         }
+
+        public RangedCharConstParser<TChar> Reversed() {
+            return this;
+        }
+
+        Generic.IReversibleParser<TChar, (int Start, int Length)> Generic.IReversibleParser<TChar, (int Start, int Length)>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<TChar> IReversibleParser<TChar>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Segments {
 
-    public readonly struct RangedCharParser<TChar>
-        : IParser<TChar>
+    public readonly partial struct RangedCharParser<TChar>
+        : IReversibleParser<TChar>
         where TChar : IComparable<TChar>
     {
 
@@ -939,13 +1275,25 @@ namespace UltimateOrb.Parsing.Segments {
                 }
             }
         }
+
+        public RangedCharParser<TChar> Reversed() {
+            return this;
+        }
+
+        Generic.IReversibleParser<TChar, (int Start, int Length)> Generic.IReversibleParser<TChar, (int Start, int Length)>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<TChar> IReversibleParser<TChar>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Segments {
 
-    public readonly struct CharIdentityParser<TChar>
-        : IParser<TChar>
+    public readonly partial struct CharIdentityParser<TChar>
+        : IReversibleParser<TChar>
     {
 
         readonly Predicate<TChar> predicate;
@@ -967,13 +1315,25 @@ namespace UltimateOrb.Parsing.Segments {
                 }
             }
         }
+
+        public CharIdentityParser<TChar> Reversed() {
+            return this;
+        }
+
+        Generic.IReversibleParser<TChar, (int Start, int Length)> Generic.IReversibleParser<TChar, (int Start, int Length)>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<TChar> IReversibleParser<TChar>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Segments {
 
-    public readonly struct CharConstParser<TChar>
-        : IParser<TChar>
+    public readonly partial struct CharConstParser<TChar>
+        : IReversibleParser<TChar>
     {
 
         readonly Predicate<TChar> predicate;
@@ -999,13 +1359,25 @@ namespace UltimateOrb.Parsing.Segments {
                 }
             }
         }
+
+        public CharConstParser<TChar> Reversed() {
+            return this;
+        }
+
+        Generic.IReversibleParser<TChar, (int Start, int Length)> Generic.IReversibleParser<TChar, (int Start, int Length)>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<TChar> IReversibleParser<TChar>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Segments {
 
-    public readonly struct CharParser<TChar>
-        : IParser<TChar>
+    public readonly partial struct CharParser<TChar>
+        : IReversibleParser<TChar>
     {
 
         readonly Predicate<TChar> predicate;
@@ -1031,13 +1403,25 @@ namespace UltimateOrb.Parsing.Segments {
                 }
             }
         }
+
+        public CharParser<TChar> Reversed() {
+            return this;
+        }
+
+        Generic.IReversibleParser<TChar, (int Start, int Length)> Generic.IReversibleParser<TChar, (int Start, int Length)>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<TChar> IReversibleParser<TChar>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Segments {
 
-    public readonly struct AnyCharIdentityParser<TChar>
-        : IParser<TChar>
+    public readonly partial struct AnyCharIdentityParser<TChar>
+        : IReversibleParser<TChar>
     {
 
         public IEnumerator<((int Start, int Length) Result, int Position)> Parse<TString>(TString input, int position = 0) where TString : IReadOnlyList<TChar> {
@@ -1051,13 +1435,25 @@ namespace UltimateOrb.Parsing.Segments {
                 }
             }
         }
+
+        public AnyCharIdentityParser<TChar> Reversed() {
+            return this;
+        }
+
+        Generic.IReversibleParser<TChar, (int Start, int Length)> Generic.IReversibleParser<TChar, (int Start, int Length)>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<TChar> IReversibleParser<TChar>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Segments {
 
-    public readonly struct AnyCharConstParser<TChar>
-        : IParser<TChar>
+    public readonly partial struct AnyCharConstParser<TChar>
+        : IReversibleParser<TChar>
     {
 
 
@@ -1080,13 +1476,25 @@ namespace UltimateOrb.Parsing.Segments {
                 }
             }
         }
+
+        public AnyCharConstParser<TChar> Reversed() {
+            return this;
+        }
+
+        Generic.IReversibleParser<TChar, (int Start, int Length)> Generic.IReversibleParser<TChar, (int Start, int Length)>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<TChar> IReversibleParser<TChar>.Reversed() {
+            return this.Reversed();
+        }
     }
 }
 
 namespace UltimateOrb.Parsing.Segments {
 
-    public readonly struct AnyCharParser<TChar>
-        : IParser<TChar>
+    public readonly partial struct AnyCharParser<TChar>
+        : IReversibleParser<TChar>
     {
 
 
@@ -1108,6 +1516,18 @@ namespace UltimateOrb.Parsing.Segments {
                     yield return (resultSelector.Invoke(ch), p);
                 }
             }
+        }
+
+        public AnyCharParser<TChar> Reversed() {
+            return this;
+        }
+
+        Generic.IReversibleParser<TChar, (int Start, int Length)> Generic.IReversibleParser<TChar, (int Start, int Length)>.Reversed() {
+            return this.Reversed();
+        }
+
+        IReversibleParser<TChar> IReversibleParser<TChar>.Reversed() {
+            return this.Reversed();
         }
     }
 }

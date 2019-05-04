@@ -1,7 +1,9 @@
 ﻿namespace UltimateOrb.Parsing.Text {
 
-    public interface IReversibleParser<T>
-        : Generic.IReversibleParser<char, T>
-        , IParser<T> {
+    public interface IReversibleParser<TResult>
+        : Generic.IReversibleParser<char, TResult>
+        , IParser<TResult> {
+
+        new IReversibleParser<TResult> Reversed();
     }
 }

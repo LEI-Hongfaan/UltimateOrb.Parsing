@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Diagnostics;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Text.RegularExpressions;
 using UltimateOrb.Parsing.Text;
+
 using static UltimateOrb.Parsing.Combinators;
 
-namespace UltimateOrb.Parsing.Examples {
+namespace UltimateOrb.Parsing.Tests {
 
     using static UltimateOrb.Parsing.Combinators.Invariant;
 
-    internal class Program {
+    public static partial class Json {
 
         #region JSON Parsers
 
@@ -47,7 +45,7 @@ namespace UltimateOrb.Parsing.Examples {
             from __ in '"'.ToParserInvariant()
             select text;
 
-        private static readonly Generic.ParserSelectManyWithPositionImpl0<char, Optional<char>, double, double> integer_p =
+        private static readonly Generic.ParserSelectManyImpl1<char, Optional<char>, double, double> integer_p =
             from neg in '-'.ToParserInvariant().Opt()
             from abs in DecimalDigit.Or(
                 from ahd in new RangedCharParser<double>('1', '9', ch => ch - '0')
@@ -228,191 +226,5 @@ namespace UltimateOrb.Parsing.Examples {
         }
 
         #endregion JSON Parsers
-
-        private static void RunJsonExample() {
-
-
-            {
-
-                var sdfa =
-                    from start in StartAtAny.ToGenericParser().WithPosition()
-                    from result in "abc".ToParserInvariant().ToGenericParser().WithPosition()
-                    select (result, start.Position).WithPosition() into result
-                    from a in AnyChar.Reversed().WithInputTransform<char, char, Generic.ReversedReadOnlyList<char, IReadOnlyList<char>>, Generic.InputReverse<char, Generic.ReversedReadOnlyList<char, IReadOnlyList<char>>>>(default).Times(4, 4)
-                    select (result, new string(a.ToArray()));
-                foreach (var item in sdfa.Parse("sdabcfsdvabcsdadcbavabcvcbav").Results()) {
-                    Console.WriteLine(item);
-                }
-
-                var fdsa =
-                    from _ in StartAtAny
-                    from v in 'v'.ToParserInvariant().AttachPositiveTo("abc".ToParserInvariant())
-                    select v;
-                foreach (var item in fdsa.Parse("sdabcfsdvabcsdadcbavabcvcbav").Results()) {
-                    Console.WriteLine(item);
-                }
-                
-
-            }
-            var json_p = GerJsonParser();
-
-            {
-                foreach (var item in json_p.Parse(
-$@"true").Results()) {
-                    Microsoft.FSharp.Core.PrintfModule.PrintFormatLine(
-                        new Microsoft.FSharp.Core.PrintfFormat<Microsoft.FSharp.Core.FSharpFunc<object, Microsoft.FSharp.Core.Unit>, System.IO.TextWriter, Microsoft.FSharp.Core.Unit, Microsoft.FSharp.Core.Unit>("%A")).Invoke(item);
-                }
-            }
-
-            {
-                foreach (var item in json_p.Parse(
-$@"true   ").Results()) {
-                    Microsoft.FSharp.Core.PrintfModule.PrintFormatLine(
-                        new Microsoft.FSharp.Core.PrintfFormat<Microsoft.FSharp.Core.FSharpFunc<object, Microsoft.FSharp.Core.Unit>, System.IO.TextWriter, Microsoft.FSharp.Core.Unit, Microsoft.FSharp.Core.Unit>("%A")).Invoke(item);
-                }
-            }
-
-            {
-                foreach (var item in json_p.Parse(
-$@"{{}}").Results()) {
-                    Microsoft.FSharp.Core.PrintfModule.PrintFormatLine(
-                        new Microsoft.FSharp.Core.PrintfFormat<Microsoft.FSharp.Core.FSharpFunc<object, Microsoft.FSharp.Core.Unit>, System.IO.TextWriter, Microsoft.FSharp.Core.Unit, Microsoft.FSharp.Core.Unit>("%A")).Invoke(item);
-                }
-            }
-
-            {
-                Microsoft.FSharp.Core.PrintfModule.PrintFormatLine(
-                    new Microsoft.FSharp.Core.PrintfFormat<Microsoft.FSharp.Core.FSharpFunc<object, Microsoft.FSharp.Core.Unit>, System.IO.TextWriter, Microsoft.FSharp.Core.Unit, Microsoft.FSharp.Core.Unit>("%A")).Invoke(
-                    json_p.Parse(
-$@"[ 1 ]").SingleResult());
-            }
-
-            {
-                Microsoft.FSharp.Core.PrintfModule.PrintFormatLine(
-                    new Microsoft.FSharp.Core.PrintfFormat<Microsoft.FSharp.Core.FSharpFunc<object, Microsoft.FSharp.Core.Unit>, System.IO.TextWriter, Microsoft.FSharp.Core.Unit, Microsoft.FSharp.Core.Unit>("%A")).Invoke(
-                    json_p.Parse(
-$@"{{ ""\/"": ""\\"" }}").SingleResult());
-            }
-
-            {
-                var v = json_p.Parse(
-$@"{{ ""Abc\u10Def""
-: [3.14
-] }}").Results();
-                Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(v));
-            }
-
-            {
-                var v = json_p.Parse(
-$@"{{
-  ""enn"": null,
-  ""pi"": 3.14,
-  ""list"": [ ""\/\t\\"", ""/\u10Abc"", true, false, [] ]
-}}").SingleResult();
-                Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(v));
-            }
-
-            {
-                var jsonText =
-$@"{{
-  ""ss"": {{
-    ""ss"": """",
-    ""enn"" :{{}},
-    ""pi"":0E5,
-    ""list"": [
-]
-,
-    ""srs"": ""s""
-  }},
-  ""enn"": null,
-  ""pi"": 3.14,
-  ""list"": [ ""\/\t\\"", ""/\u20aC♞"", true, false, [] ]
-}}";
-                var sw = new Stopwatch();
-                sw.Start();
-                var v = json_p.Parse(jsonText).SingleResult();
-                sw.Stop();
-                Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(v));
-                var a = Newtonsoft.Json.Linq.JToken.FromObject(v);
-                var b = Newtonsoft.Json.Linq.JToken.Parse(jsonText);
-                var c = Newtonsoft.Json.Linq.JToken.DeepEquals(a, b);
-                Console.WriteLine(c);
-                Console.WriteLine(sw.Elapsed);
-            }
-        }
-
-        private static void Main(string[] args) {
-            Console.OutputEncoding = Encoding.Unicode;
-            {
-                RunJsonExample();
-            }
-            {
-                var parser =
-                    from _1 in ' '.ToParser()
-                    from _ in AnyChar.Times(0, 2)
-                    from x in new Regex(@"\d{2,4}\b").AsParser()
-                    from y in AnyChar.Times(2, 4)
-                    select x + "_" + y;
-                foreach (var v in parser.Parse(" 987 xy65 4321 z").Results()) {
-                    Console.WriteLine(v);
-                }
-            }
-            {
-                var parser =
-                    from x in DecimalDigit.Or('x'.ToParserInvariant()).Times()
-                    let c = x.Count
-                    from y in DecimalDigit.Or('y'.ToParserInvariant()).Times(c)
-                    from z in DecimalDigit.Or('z'.ToParserInvariant()).Times(c)
-                    from _ in EndOfInput
-                    select
-                    x.Where(s => 1 == s.Case).Select(s => s.Value1).Sum() +
-                    y.Where(s => 1 == s.Case).Select(s => s.Value1).Sum() +
-                    z.Where(s => 1 == s.Case).Select(s => s.Value1).Sum();
-                foreach (var v in parser.Parse("9xxyyy87z").Results()) {
-                    Console.WriteLine(v);
-                }
-            }
-            {
-                var parser =
-                    from _ in StartAtAny
-                    from x in AnyCharSequenceNillable
-                    from y in DecimalDigit
-                    select x + ":" + y;
-                foreach (var v in parser.Parse("1abc2de456").Results()) {
-                    Console.WriteLine(v);
-                }
-            }
-            {
-                var parser =
-                    from x in DecimalDigitSequenceNillable
-                    from y in (
-                        from _ in '.'.ToParserInvariant()
-                        from y in DecimalDigitSequenceNillable
-                        select y
-                    ).Opt()
-                    from _ in EndOfInput
-                    where x.Count > 0 || y.HasValue && y.Value.Count > 0
-                    let i = x.Aggregate(0, (p, q) => 10 * p + q)
-                    let k = new StrongBox<decimal>(1m)
-                    select y.HasValue ? y.Value.Aggregate((decimal)i, (p, q) => p + q * (k.Value *= 0.1m)) : i;
-
-                var samples = new[] {
-                    "3.14",
-                    ".123",
-                    "6.",
-                    "789",
-                    ".0",
-                    ".", // failed
-                };
-                foreach (var sample in samples) {
-                    try {
-                        var v = parser.Parse(sample).SingleResult();
-                        Console.WriteLine(v);
-                    } catch (InvalidOperationException ex) {
-                        Console.WriteLine("Oops: {0}.", ex.Message);
-                    }
-                }
-            }
-        }
     }
 }

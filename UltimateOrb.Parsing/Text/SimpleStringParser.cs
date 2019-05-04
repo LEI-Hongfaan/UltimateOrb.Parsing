@@ -12,7 +12,7 @@ namespace UltimateOrb.Parsing.Text {
 
         public IEnumerator<(string Result, int Position)> Parse<TString>(TString input, int position = 0) where TString : IReadOnlyList<char> {
             var p = position;
-            if (input.Count <= p + excepted.Length) {
+            if (p + excepted.Length <= input.Count) {
                 for (var i = 0; excepted.Length > i;) {
                     var ch1 = excepted[i++];
                     var ch2 = input[p++];
@@ -37,7 +37,7 @@ namespace UltimateOrb.Parsing.Text {
 
         public IEnumerator<(T Result, int Position)> Parse<TString>(TString input, int position = 0) where TString : IReadOnlyList<char> {
             var p = position;
-            if (input.Count <= p + excepted.Length) {
+            if (p + excepted.Length <= input.Count) {
                 for (var i = 0; excepted.Length > i;) {
                     var ch1 = excepted[i++];
                     var ch2 = input[p++];

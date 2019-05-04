@@ -3,6 +3,6 @@
     public interface IReversibleParser<TChar, TResult>
         : IParser<TChar, TResult> {
 
-        IParser<TChar, TResult> Reversed();
+        IReversibleParser<TChar, TResult> Reversed();
     }
 }
