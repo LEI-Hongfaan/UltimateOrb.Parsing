@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using UltimateOrb.Parsing.Generic;
 
 <#
-for (var index = 0; 8 > index; ++index) {
+for (var index = 1; 8 > index; ++index) {
     var b0 = 0 != (1 & index);
     var b1 = 0 != (2 & index);
     var b2 = 0 != (4 & index);

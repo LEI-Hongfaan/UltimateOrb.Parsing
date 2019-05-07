@@ -47,7 +47,7 @@ namespace UltimateOrb.Parsing.Examples {
             from __ in '"'.ToParserInvariant()
             select text;
 
-        private static readonly Generic.ParserSelectManyWithPositionImpl0<char, Optional<char>, double, double> integer_p =
+        private static readonly Generic.ParserSelectManyImpl1<char, Optional<char>, double, double> integer_p =
             from neg in '-'.ToParserInvariant().Opt()
             from abs in DecimalDigit.Or(
                 from ahd in new RangedCharParser<double>('1', '9', ch => ch - '0')
