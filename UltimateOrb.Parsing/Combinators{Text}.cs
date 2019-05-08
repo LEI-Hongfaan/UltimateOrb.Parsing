@@ -43,6 +43,25 @@ namespace UltimateOrb.Parsing {
             return new ParserOneOfImpl(chars);
         }
 
+        public static bool BinarySearch(this char[] array,char expected) {
+            var arrayLength = array.Length;
+            if (expected >= array[0] || expected <= array[arrayLength - 1]) {
+                var headIndex = 0;
+                var tailIndex = arrayLength - 1;
+                while (headIndex <= tailIndex) {
+                    var middleIndex = (tailIndex + headIndex) >> 1;
+                    if (expected == array[middleIndex]) {
+                        return true;
+                    } else if (expected > array[middleIndex]) {
+                        headIndex = middleIndex + 1;
+                    } else {
+                        tailIndex = middleIndex - 1;
+                    }
+                }
+            }
+            return false;
+        }
+
     }
 
     
