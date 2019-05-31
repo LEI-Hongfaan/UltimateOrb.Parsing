@@ -43,9 +43,8 @@ namespace UltimateOrb.Parsing {
         public static ParserOneOfImpl OneOf(string chars) {
             return new ParserOneOfImpl(chars);
         }
-
-        public static ParserLeftImpl Left(string left,string right) {
-            return new ParserLeftImpl(left, right);
+        public static ParserLeftImpl<TResult1, TResult2> Left<TResult1, TResult2>(IParser<TResult1> parser1, IParser<TResult2> parser2) {
+            return new ParserLeftImpl<TResult1, TResult2>(parser1, parser2);
         }
 
         public static bool BinarySearch(this char[] array,char expected) {
