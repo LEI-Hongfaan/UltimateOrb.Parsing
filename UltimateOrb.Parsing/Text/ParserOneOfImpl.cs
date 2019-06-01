@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UltimateOrb.Parsing.Text;
 
 namespace UltimateOrb.Parsing {
@@ -6,10 +7,11 @@ namespace UltimateOrb.Parsing {
     public readonly struct ParserOneOfImpl
         : IParser<char> {
 
-        private readonly string chars;
+        private readonly char[] chars;
 
         public ParserOneOfImpl(string chars) {
-            this.chars = chars;
+            this.chars = chars.ToCharArray();
+            Array.Sort(this.chars);
         }
 
         public IEnumerator<(char Result, int Position)> Parse<TString>(TString input, int position = 0) where TString : IReadOnlyList<char> {
@@ -17,7 +19,7 @@ namespace UltimateOrb.Parsing {
             if (input.Count > p) {
                 var ch = input[p++];
                 if (
-                    this.chars.Contains(ch.ToString())
+                    this.chars.BinarySearch(ch)
                 ) {
                     yield return (ch, p);
                 }
