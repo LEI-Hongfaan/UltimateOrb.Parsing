@@ -44,6 +44,10 @@ namespace UltimateOrb.Parsing {
             public static RangedCharParser<TResult> Range<TResult>(char minExpected, char maxExpected, Converter<char, TResult> resultSelector) {
                 return new RangedCharParser<TResult>(minExpected, maxExpected, resultSelector);
             }
+
+            public static ParserAnyCharOfImpl AnyCharOf(string chars) {
+                return new ParserAnyCharOfImpl(chars);
+            }
         }
     }
 }
